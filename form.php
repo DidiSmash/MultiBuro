@@ -4,72 +4,32 @@
         <meta charset="UTF-8">
         <link href="index.css" rel="stylesheet" type="text/css" media="screen">
     </head>
-    <script>
-        function verifDate(date)
-        {
-            <?php
-                // Ouverture du fichier CSV
-                $monFichier = fopen('./Client.csv','r');
-             ?>
-
-            console.log(date);
-
-            <?php 
-             // Lecture ligne à ligne
-            while(!feof($monFichier))
-            {
-                // Récupération et affichage de la ligne en cours
-                $ligne = fgets($monFichier);
-                $tab = explode('|', $ligne);
-                // Recup date
-
-                //Verification
-                if (str_contains($tab[5], $resLabel)) { // and date == tab[4]
-        ?>
-
-            if (date == <?php $tab[4]?>) {
-                alert("STOP");
-            }
-
-            <?php
-                    echo "<br> Oui | ", $tab[5], " \ ", $tab[4], " | <br>";
-            }
-            }
-            // Fermeture du fichiers CSV
-            fclose($monFichier);
-            ?>
-            
-        }
-
-        function dateSelect(e)
-        {
-            date = e.target.value
-
-            alert(date)
-            verifDate(date);
-            
-        }
-    </script>
     <body>
         <?php
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Something posted
           
-            if (isset($_POST['Res1'])) {
-              $resLabel = "Res1";
+            if (isset($_POST['codeR'])) {
+                $codeR = $_POST['codeR'];
             }
-            if (isset($_POST['Res2'])) {
-                $resLabel = "Res2";
+            if (isset($_POST['nameR'])) {
+                $nameR = $_POST['nameR'];
             }
-            if (isset($_POST['Res3'])) {
-                $resLabel = "Res3";
+            if (isset($_POST['typeR'])) {
+                $typeR = $_POST['typeR'];
+            }
+            if (isset($_POST['capaciteR'])) {
+                $capaciteR = $_POST['capaciteR'];
+            }
+            if (isset($_POST['tarifJourR'])) {
+                $tarifJourR = $_POST['tarifJourR'];
             }
           }
 
         ?>
 
-        <h1>Formulaire <?php echo $resLabel; ?></h1>
+        <h1>Formulaire <?php echo $nameR; ?></h1>
 
         <form action="checked.php" method="post">
 
@@ -78,27 +38,22 @@
                 <!-- Saisie du nom -->
                 <div>
                     <label>Nom</label>
-                    <input type="text" name="nom">
+                    <input type="text" name="nom" value="<?php echo $nameR; ?>" disabled>
                 </div>
                 <!-- Saisie du prénom -->
                 <div>
-                    <label>Prénom</label>
-                    <input type="text" name="prenom">
+                    <label>Type</label>
+                    <input type="text" name="type" value="<?php echo $typeR; ?>" disabled>
                 </div>
                 <!-- Saisie du Téléphone -->
                 <div>
-                    <label>Téléphone</label>
-                    <input type="text" name="telephone">
+                    <label>Capacité</label>
+                    <input type="text" name="capacite" value="<?php echo $capaciteR; ?>" disabled>
                 </div>
                 <!-- Saisie de l'Email -->
                 <div>
-                    <label>Email</label>
-                    <input type="email" name="email">
-                </div>
-                <!-- Saisie de la date de reservation -->
-                <div>
-                    <label>Date de réservation</label>
-                    <input type="date" name="dateRes" onchange="dateSelect(event);" >
+                    <label>Tarif</label>
+                    <input type="text" name="tarif" value="<?php echo $tarifJourR; ?>" disabled>
                 </div>
                 <!-- Validation -->
                 <div>

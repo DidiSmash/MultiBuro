@@ -15,9 +15,9 @@ CREATE TABLE utilisateur
 CREATE TABLE ressource
 (
     codeR VARCHAR(4),
-    libelleR VARCHAR(40),UNIQUE,
+    libelleR VARCHAR(40),
     typeR VARCHAR(2),
-    capaciteR INTEGER(3),CHECK capaciteR>0,
+    capaciteR INTEGER(3),
     tarifJourR DECIMAL(5,2),
     CONSTRAINT PK_ressource PRIMARY KEY (codeR)
 );
@@ -43,15 +43,15 @@ VALUES  (0004);
 INSERT INTO utilisateur(id_utilisateur)
 VALUES  (0005);
 INSERT INTO ressource(codeR, libelleR, typeR, capaciteR, tarifJourR)
-VALUES  ('301','SLAM','SC',20,70.5);
+VALUES  ('301','Diamant','BI',20,70.5);
 INSERT INTO ressource(codeR, libelleR, typeR, capaciteR, tarifJourR)
-VALUES  ('302','SISR','SC',25,45.698);
+VALUES  ('302','Rubie','OS',25,45.698);
 INSERT INTO ressource(codeR, libelleR, typeR, capaciteR, tarifJourR)
-VALUES  ('303','cejm','SC',23,100);
+VALUES  ('303','Saphir','BD',23,100);
 INSERT INTO ressource(codeR, libelleR, typeR, capaciteR, tarifJourR)
-VALUES  ('304','Anglais','SC',10,98);
+VALUES  ('304','Topaze','BI',10,98);
 INSERT INTO ressource(codeR, libelleR, typeR, capaciteR, tarifJourR)
-VALUES  ('305','culture G','SC',30,102.15);
+VALUES  ('305','Emeraude','OS',30,102.15);
 /*----------------------------INSERTION DE DONNEES POUR UNE RESERVATION------------------------------*/
 INSERT INTO reservation(id_utilisateur,code_ressource,date_reservation)
 VALUES  (0001,'301',"2024-01-24");

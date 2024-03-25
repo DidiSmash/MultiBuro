@@ -53,7 +53,9 @@ function createCSV($fileName) {
 
 function displayInput($argv)
 {
-    $tmp = '<div">';
+    $tmp = '';
+    if(isset($argv['nodiv']) && $argv['nodiv'] !== true)
+        $tmp .= '<div>';
     if(isset($argv['libelle']) === true)
         $tmp .= '<label>'.$argv['libelle'].'</label>';
     $tmp .= '<input';
@@ -73,13 +75,12 @@ function displayInput($argv)
     // [optionnel]Size
     if(isset($argv['size']) === true)
         $tmp .= ' size="'.$argv['size'].'"';
-    // [optionnel]MaxChar
-    if(isset($argv['maxChar']) === true)
-        $tmp .= ' maxlength="'.$argv['maxChar'].'"';
     // [optionnel]Readonly
     if(isset($argv['disabled']) && $argv['disabled'] === true)
         $tmp .= ' disabled';
-    $tmp .= ' /></div>';
+    $tmp .= ' />';
+    if(isset($argv['nodiv']) && $argv['nodiv'] !== true)
+        $tmp .= '</div>';
     // Affichage
     echo $tmp;
 }
@@ -150,5 +151,42 @@ function displayButton($argv)
     echo $tmp;
 }
 
+function getRes($date) {
+    //Création de l'objet
+    $connect = new PDO(SGBDR.':dbname='.BDD.';host='.HOST.';port='.PORT, LOGIN, PASSW);
+
+    //preparation requête
+    $stmt = $connect->prepare("SELECT codeR,libelleR,typeR,capaciteR,tarifJourR
+    FROM ressource RS
+    INNER JOIN reservation RV ON RS.codeR = RV.code_ressource
+    WHERE date_reservation NOT LIKE('$date')");
+
+    $allResMsg = "<table><thead><th>Id Ressource</th><th>Nom Ressource</th><th>type Ressource</th><th>capacité Ressource</th><th>Tarif à la Journée Ressource</th><th>Reserver</th></thead><tbody>";
+
+    //association des variables
+    //$stmt->bindParam(':date_code', $date, PDO::PARAM_STR, 11);
+
+    //association des variables & Execution
+    $stmt->execute();
+
+    if($result = $stmt->fetchAll())
+    {
+        foreach($result as $ligne)
+        {
+            $allResMsg .= "<td>".$ligne['codeR'].'</td><td>'.$ligne['libelleR'].'</td><td>'.$ligne['typeR'].'</td><td>'.$ligne['capaciteR'].'</td><td>'.$ligne['tarifJourR'].'$</td><td>
+            <form action="form.php" method="post">
+                <input type="hidden" name="codeR" value="'.$ligne['codeR'].'">
+                <input type="hidden" name="nameR" value="'.$ligne['libelleR'].'">
+                <input type="hidden" name="typeR" value="'.$ligne['typeR'].'">
+                <input type="hidden" name="capaciteR" value="'.$ligne['capaciteR'].'">
+                <input type="hidden" name="tarifJourR" value="'.$ligne['tarifJourR'].'">
+                <input type="submit" name="subButton" value="Reserver">
+            </form></td><tr>';
+        }
+    }
+
+    $allResMsg .= "</tbody></table>";
+    return $allResMsg;
+}
 
 ?>

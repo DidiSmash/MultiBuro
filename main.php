@@ -30,6 +30,8 @@
             </div>
 
         </form>
+
+        <a href="reservations.php">Voir Plus</a>
         
 
         </div>
