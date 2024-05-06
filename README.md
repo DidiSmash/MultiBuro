@@ -121,6 +121,14 @@ nominatifs avec des droits restreints pour les utilisateurs et les applications 
 
 ● Création d'un utilisateur pour l'application Front-Office avec des droits limités au stricte nécessaire.
 
+## Réalisation
+
+### Sprint 0
+
+### Sprint 1
+
+### Sprint 2
+
 ## Autheurs
 
 - [@DidiSmash](https://github.com/DidiSmash)
